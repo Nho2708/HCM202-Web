@@ -106,10 +106,10 @@ const QASection = () => {
                     <div className="p-4 border-b border-gray-100 flex items-center justify-between bg-white/50">
                         <div className="flex items-center gap-3">
                             <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
-                            <span className="font-bold text-gray-700">AI Trợ Lý</span>
+                            <span className="font-bold text-gray-700">Chuyên Gia Tư Tưởng</span>
                         </div>
                         <button
-                            onClick={() => setMessages([{ role: 'ai', content: 'Xin chào! Tôi là một trợ lý thông minh. Bạn có thể hỏi tôi bất cứ điều gì. Hãy bắt đầu cuộc trò chuyện! 😊' }])}
+                            onClick={() => setMessages([{ role: 'ai', content: 'Xin chào! Tôi là một chuyên gia tư tưởng. Bạn có thể hỏi tôi bất cứ điều gì. Hãy bắt đầu cuộc trò chuyện! 😊' }])}
                             className="p-2 text-gray-400 hover:text-primary transition-colors"
                             title="Xóa lịch sử chat"
                         >
@@ -126,14 +126,14 @@ const QASection = () => {
                             <div key={idx} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'} animate-slide-up`}>
                                 <div className={`flex gap-4 max-w-[90%] md:max-w-[75%] ${msg.role === 'user' ? 'flex-row-reverse' : ''}`}>
                                     <div className={`w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 shadow-lg ${msg.role === 'user'
-                                            ? 'bg-gradient-to-br from-primary to-primary-light text-white'
-                                            : 'bg-white border border-gray-100 text-primary'
+                                        ? 'bg-gradient-to-br from-primary to-primary-light text-white'
+                                        : 'bg-white border border-gray-100 text-primary'
                                         }`}>
                                         {msg.role === 'user' ? <User size={20} /> : <Bot size={20} />}
                                     </div>
                                     <div className={`p-4 rounded-2xl shadow-sm ${msg.role === 'user'
-                                            ? 'bg-primary text-white rounded-tr-none'
-                                            : 'bg-white text-gray-800 rounded-tl-none border border-gray-100'
+                                        ? 'bg-primary text-white rounded-tr-none'
+                                        : 'bg-white text-gray-800 rounded-tl-none border border-gray-100'
                                         }`}>
                                         <p className="leading-relaxed whitespace-pre-wrap text-[14px]">{msg.content}</p>
                                     </div>
@@ -176,9 +176,6 @@ const QASection = () => {
                                 <Send size={18} />
                             </button>
                         </form>
-                        <div className="mt-3 text-center text-xs text-gray-400">
-                            Được hỗ trợ bởi AI
-                        </div>
                     </div>
                 </div>
             </div>

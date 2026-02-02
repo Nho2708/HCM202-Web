@@ -76,7 +76,6 @@ const Navbar = () => {
     const navItems = [
         { name: 'Trang chủ', id: 'home' },
         { name: 'Nội dung', id: 'content' },
-        { name: 'Trò chơi', id: 'game' },
         { name: 'Hỏi đáp', id: 'qa' },
     ];
 

@@ -56,7 +56,7 @@ const Hero = () => {
                                 className="flex items-center gap-2 px-8 py-4 bg-white/5 text-white font-bold rounded-full border border-white/10 hover:bg-white/10 transition-all active:scale-95 backdrop-blur-sm"
                             >
                                 <Play size={20} className="fill-white" />
-                                <span>Vào chặng đua Game</span>
+                                <span>Tìm kiếm di sản trong game</span>
                             </button>
                         </div>
 

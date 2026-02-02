@@ -58,7 +58,7 @@ const Footer = () => {
                 <div className="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-6">
                     <div>
                         <p className="text-gray-500 text-sm">
-                            &copy; {new Date().getFullYear()} Hồ Chí Minh Learning Hub.
+                            &copy; {new Date().getFullYear()} Tư Tưởng Hồ Chí Minh.
                         </p>
                     </div>
                     <div className="flex gap-8 text-sm text-gray-500">

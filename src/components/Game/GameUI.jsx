@@ -14,7 +14,7 @@ const GameUI = () => {
     const renderMainMenu = () => (
         <div className="w-full max-w-5xl mx-auto space-y-12 animate-fade-in py-12">
             <div className="text-center space-y-4">
-                <h2 className="text-6xl font-serif font-bold text-accent drop-shadow-lg">Trung Tâm Giải Trí</h2>
+                <h2 className="text-6xl font-serif font-bold text-accent drop-shadow-lg uppercase tracking-wider">Dấu Ấn Di Sản</h2>
                 <p className="text-xl text-white/70 max-w-2xl mx-auto">
                     Khám phá tri thức thông qua các trò chơi tương tác hấp dẫn. Chọn hành trình của bạn ngay!
                 </p>
@@ -24,19 +24,23 @@ const GameUI = () => {
                 {/* Treasure Hunt Option - Full Width */}
                 <div
                     onClick={handleStartTreasure}
-                    className="group relative bg-white/5 backdrop-blur-xl border border-white/10 rounded-[2.5rem] p-10 cursor-pointer overflow-hidden transition-all duration-500 hover:border-accent/40 hover:-translate-y-2 hover:shadow-[0_20px_40px_rgba(0,0,0,0.4)] w-full max-w-2xl"
+                    className="group relative bg-glass rounded-[2.5rem] p-10 cursor-pointer overflow-hidden transition-all duration-700 hover:border-accent/60 hover:-translate-y-3 hover:shadow-[0_30px_60px_-15px_rgba(212,175,55,0.3)] w-full max-w-2xl"
                 >
-                    <div className="absolute -top-20 -right-20 w-64 h-64 bg-accent/10 rounded-full blur-3xl group-hover:bg-accent/20 transition-all"></div>
+                    {/* Animated Light Beam */}
+                    <div className="absolute inset-0 bg-gradient-to-tr from-accent/0 via-accent/5 to-accent/0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+
+                    <div className="absolute -top-20 -right-20 w-64 h-64 bg-accent/10 rounded-full blur-3xl group-hover:bg-accent/20 group-hover:scale-125 transition-all duration-700"></div>
                     <div className="relative z-10 flex flex-col h-full">
-                        <div className="w-16 h-16 bg-accent/20 rounded-2xl flex items-center justify-center mb-6 text-accent group-hover:scale-110 transition-transform">
+                        <div className="w-16 h-16 bg-accent/20 rounded-2xl flex items-center justify-center mb-6 text-accent group-hover:rotate-[360deg] transition-transform duration-700">
                             <MapIcon size={32} />
                         </div>
-                        <h3 className="text-3xl font-bold text-white mb-4">Đi Tìm Kho Báu</h3>
-                        <p className="text-white/60 text-lg mb-8 flex-grow">
+                        <h3 className="text-4xl font-bold text-white mb-4 group-hover:text-accent transition-colors">Đi Tìm Kho Báu</h3>
+                        <p className="text-white/70 text-lg mb-8 flex-grow">
                             Khám phá các dấu mốc lịch sử, giải mã ẩn số và thu thập bảo vật của dân tộc.
                         </p>
-                        <div className="flex items-center gap-2 text-accent font-bold">
-                            Khám phá ngay <ArrowRight size={20} />
+                        <div className="flex items-center gap-3 text-accent font-bold text-lg">
+                            <span>Bắt đầu hành trình</span>
+                            <ArrowRight size={24} className="group-hover:translate-x-2 transition-transform" />
                         </div>
                     </div>
                 </div>

@@ -66,11 +66,6 @@ const Hero = () => {
                                 <div className="text-sm text-gray-500 uppercase tracking-widest">Chương học</div>
                             </div>
                             <div className="w-px h-10 bg-white/10"></div>
-                            <div>
-                                <div className="text-2xl font-bold text-white">100+</div>
-                                <div className="text-sm text-gray-500 uppercase tracking-widest">Câu hỏi AI</div>
-                            </div>
-                            <div className="w-px h-10 bg-white/10"></div>
                             
                         </div>
                     </div>

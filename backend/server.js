@@ -256,6 +256,7 @@ app.get('/api/leaderboard', async (req, res) => {
 // 6. API Lấy số lượt truy cập (Và tăng số lượt)
 app.get('/api/stats/visit', async (req, res) => {
     const shouldIncrement = req.query.increment !== 'false';
+    console.log(`[Stats] Nhận yêu cầu từ Vercel. Tăng lượt: ${shouldIncrement}`);
     try {
         let pool = await sql.connect(dbConfig);
         let query = `
@@ -273,8 +274,10 @@ app.get('/api/stats/visit', async (req, res) => {
         query += ` SELECT TotalVisits FROM SiteStats;`;
 
         const result = await pool.request().query(query);
+        console.log(`[Stats] Tổng số lượt hiện tại: ${result.recordset[0].TotalVisits}`);
         res.json({ totalVisits: result.recordset[0].TotalVisits });
     } catch (err) {
+        console.error('[Stats] Lỗi khi xử lý lượt truy cập:', err.message);
         res.status(500).send(err.message);
     }
 });

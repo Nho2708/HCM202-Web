@@ -1,267 +1,259 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, Rocket, ShieldCheck, User as UserIcon, LogOut, ChevronDown, Monitor, Users } from 'lucide-react'; // Thêm icon mới
+import { Menu, X, Rocket, ShieldCheck, User as UserIcon, LogOut, ChevronDown, Monitor, Users, ChevronRight } from 'lucide-react';
 import AuthModal from './AuthModal';
-import { io } from 'socket.io-client'; // Import socket.io-client
+import { useNavigate, useLocation, Link } from 'react-router-dom';
 
 const Navbar = () => {
-    const [isOpen, setIsOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
-    const [isAuthOpen, setIsAuthOpen] = useState(false);
-    const [user, setUser] = useState(null);
-    const [showUserMenu, setShowUserMenu] = useState(false);
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')) || null);
+    const [stats, setStats] = useState({ online: 1, total: 1000 });
+    const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
+    const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
+    const navigate = useNavigate();
+    const location = useLocation();
 
-    // Stats state
-    const [onlineCount, setOnlineCount] = useState(1);
-    const [totalVisits, setTotalVisits] = useState(0);
-
+    // Stats Handling
     useEffect(() => {
-        const handleScroll = () => {
-            setScrolled(window.scrollY > 50);
+        const fetchStats = async () => {
+            try {
+                const apiBaseUrl = import.meta.env.VITE_API_BASE_URL.replace(/\/$/, "");
+
+                // Track visit once per session
+                const hasVisited = sessionStorage.getItem('hasVisited');
+                const shouldIncrement = !hasVisited;
+                if (shouldIncrement) sessionStorage.setItem('hasVisited', 'true');
+
+                const res = await fetch(`${apiBaseUrl}/api/stats/visit?increment=${shouldIncrement}`, {
+                    headers: { 'ngrok-skip-browser-warning': '69420' }
+                });
+
+                if (res.ok) {
+                    const data = await res.json();
+                    setStats(prev => ({
+                        ...prev,
+                        online: data.onlineCount || prev.online,
+                        total: data.totalVisits || prev.total
+                    }));
+                }
+            } catch (err) { }
         };
 
-        const savedUser = localStorage.getItem('user');
-        if (savedUser) {
-            setUser(JSON.parse(savedUser));
-        }
+        const interval = setInterval(fetchStats, 30000);
+        fetchStats();
+        return () => clearInterval(interval);
+    }, []);
 
-        const API_URL = import.meta.env.VITE_API_BASE_URL.replace(/\/$/, ""); // Xóa dấu / ở cuối nếu có
-        console.log("Connecting to API at:", API_URL); // Dòng này giúp bạn kiểm tra F12 xem URL đúng chưa
-
-        // Stats logic
-        let hasVisitedSession = sessionStorage.getItem('hasVisited');
-        let shouldIncrement = !hasVisitedSession;
-        if (shouldIncrement) {
-            sessionStorage.setItem('hasVisited', 'true');
-        }
-
-        fetch(`${API_URL}/api/stats/visit?increment=${shouldIncrement}`, {
-            headers: {
-                "ngrok-skip-browser-warning": "69420" // Bypass ngrok warning page
-            }
-        })
-            .then(res => res.json())
-            .then(data => {
-                console.log("Visit stats received:", data);
-                setTotalVisits(data.totalVisits || 0);
-            })
-            .catch(err => console.error("Error fetching visits:", err));
-
-        // Socket logic for Online count
-        const socket = io(API_URL, {
-            transports: ['websocket', 'polling'], // Đảm bảo socket chạy được qua tunnel
-            reconnectionAttempts: 5
-        });
-
-        socket.on('connect', () => console.log("Socket connected!"));
-        socket.on('onlineCount', (count) => {
-            console.log("Online users:", count);
-            setOnlineCount(count);
-        });
-
-        socket.on('connect_error', (err) => {
-            console.error("Socket connection error:", err);
-        });
-
+    // Scroll Effect
+    useEffect(() => {
+        const handleScroll = () => setScrolled(window.scrollY > 20);
         window.addEventListener('scroll', handleScroll);
-        const handleOpenAuth = () => setIsAuthOpen(true);
-        window.addEventListener('openAuthModal', handleOpenAuth);
-
-        return () => {
-            window.removeEventListener('scroll', handleScroll);
-            window.removeEventListener('openAuthModal', handleOpenAuth);
-            socket.disconnect();
-        };
+        return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
     const navItems = [
-        { name: 'Trang chủ', id: 'home' },
-        { name: 'Nội dung', id: 'content' },
-        { name: 'Hỏi đáp', id: 'qa' },
+        { name: 'Trang chủ', id: 'home', path: '/' },
+        { name: 'Nội dung', id: 'content', path: '/#content' },
+        { name: 'Hỏi đáp', id: 'qa', path: '/#qa' },
+        { name: 'Về dự án', id: 'about', path: '/about' },
     ];
 
-    const scrollToSection = (id) => {
-        const element = document.getElementById(id);
-        if (element) {
-            element.scrollIntoView({ behavior: 'smooth' });
-            setIsOpen(false);
+    const isNotHome = location.pathname !== '/';
+    const shouldShowSolid = scrolled || isNotHome;
+
+    const handleNavClick = (item) => {
+        setIsMenuOpen(false);
+        if (item.path === '/about') {
+            navigate('/about');
+            window.scrollTo(0, 0);
+        } else if (item.path.startsWith('/#')) {
+            const targetId = item.path.substring(2);
+            if (location.pathname !== '/') {
+                navigate('/');
+                setTimeout(() => {
+                    const element = document.getElementById(targetId);
+                    if (element) element.scrollIntoView({ behavior: 'smooth' });
+                }, 100);
+            } else {
+                const element = document.getElementById(targetId);
+                if (element) element.scrollIntoView({ behavior: 'smooth' });
+            }
+        } else {
+            navigate('/');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
     };
 
-    const handleLogout = () => {
-        localStorage.removeItem('user');
-        setUser(null);
-        setShowUserMenu(false);
-    };
-
     return (
-        <>
-            <nav className={`fixed top-0 w-full z-50 transition-all duration-500 ${scrolled
-                ? 'bg-[#0a0a0a]/80 backdrop-blur-xl border-b border-white/5 py-3'
+        <nav
+            className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 ${shouldShowSolid
+                ? 'bg-white/80 backdrop-blur-lg shadow-lg py-3'
                 : 'bg-transparent py-5'
-                }`}>
-                <div className="container mx-auto px-4">
-                    <div className="flex justify-between items-center">
-                        {/* Logo */}
-                        <div
-                            className="flex items-center gap-3 cursor-pointer group"
-                            onClick={() => scrollToSection('home')}
-                        >
-                            <div className="w-10 h-10 bg-primary rounded-xl flex items-center justify-center font-bold text-accent shadow-lg shadow-primary/20 rotate-[-5deg] group-hover:rotate-0 transition-transform">
-                                HCM
-                            </div>
-                            <span className="text-xl md:text-2xl font-serif font-bold text-white tracking-tight">
-                                Tư Tưởng <span className="text-accent">Hồ Chí Minh</span>
-                            </span>
-                        </div>
-
-                        {/* Desktop Menu */}
-                        <div className="hidden md:flex items-center space-x-1">
-                            {/* Stats */}
-                            <div className="flex items-center gap-4 mr-6 px-4 py-2 bg-white/5 rounded-2xl border border-white/5">
-                                <div className="flex items-center gap-2" title="Đang trực tuyến">
-                                    <div className="relative">
-                                        <Users size={16} className="text-accent" />
-                                        <span className="absolute -top-1 -right-1 w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
-                                    </div>
-                                    <span className="text-xs font-bold text-white">{onlineCount}</span>
-                                </div>
-                                <div className="w-px h-4 bg-white/10"></div>
-                                <div className="flex items-center gap-2" title="Tổng lượt truy cập">
-                                    <Monitor size={16} className="text-primary-light" />
-                                    <span className="text-xs font-bold text-white">{totalVisits.toLocaleString()}</span>
-                                </div>
-                            </div>
-
-                            {navItems.map((item) => (
-                                <button
-                                    key={item.id}
-                                    onClick={() => scrollToSection(item.id)}
-                                    className="px-5 py-2 text-gray-300 hover:text-white transition-all font-medium text-[15px] relative group"
-                                >
-                                    {item.name}
-                                    <span className="absolute bottom-0 left-1/2 w-0 h-0.5 bg-accent transition-all duration-300 -translate-x-1/2 group-hover:w-1/2"></span>
-                                </button>
-                            ))}
-
-                            <div className="ml-4 pl-4 border-l border-white/10 flex items-center gap-4">
-                                {user ? (
-                                    <div className="relative">
-                                        <button
-                                            onClick={() => setShowUserMenu(!showUserMenu)}
-                                            className="flex items-center gap-2 bg-white/5 hover:bg-white/10 p-1 pr-3 rounded-full transition-all border border-white/10"
-                                        >
-                                            <img src={user.avatar} alt={user.name} className="w-8 h-8 rounded-full border border-accent/30" />
-                                            <span className="text-sm font-bold text-white max-w-[100px] truncate">{user.name}</span>
-                                            <ChevronDown size={14} className={`text-gray-400 transition-transform ${showUserMenu ? 'rotate-180' : ''}`} />
-                                        </button>
-
-                                        {showUserMenu && (
-                                            <div className="absolute top-full right-0 mt-3 w-48 bg-[#1a1a1a] border border-white/10 rounded-2xl shadow-2xl overflow-hidden animate-slide-up">
-                                                <div className="p-4 border-b border-white/5">
-                                                    <p className="text-xs text-gray-500 mb-1">Đăng nhập với</p>
-                                                    <p className="text-sm font-bold text-white truncate">{user.email}</p>
-                                                </div>
-                                                <button
-                                                    onClick={() => setShowUserMenu(false)}
-                                                    className="w-full flex items-center gap-3 px-4 py-3 text-gray-300 hover:bg-white/5 hover:text-white transition-all text-sm"
-                                                >
-                                                    <UserIcon size={16} />
-                                                    Tài khoản của tôi
-                                                </button>
-                                                <button
-                                                    onClick={handleLogout}
-                                                    className="w-full flex items-center gap-3 px-4 py-3 text-red-400 hover:bg-red-500/10 transition-all text-sm font-bold"
-                                                >
-                                                    <LogOut size={16} />
-                                                    Đăng xuất
-                                                </button>
-                                            </div>
-                                        )}
-                                    </div>
-                                ) : (
-                                    <button
-                                        onClick={() => setIsAuthOpen(true)}
-                                        className="flex items-center gap-2 px-6 py-2.5 bg-white text-[#0a0a0a] font-bold rounded-full hover:bg-accent transition-all active:scale-95 text-sm"
-                                    >
-                                        <UserIcon size={16} />
-                                        <span>Đăng nhập</span>
-                                    </button>
-                                )}
-
-                                <button
-                                    onClick={() => scrollToSection('game')}
-                                    className="bg-primary hover:bg-primary-light text-white px-5 py-2.5 rounded-full font-bold text-sm transition-all shadow-lg active:scale-95 flex items-center gap-2"
-                                >
-                                    <Rocket size={16} />
-                                    <span>Thử thách</span>
-                                </button>
-                            </div>
-                        </div>
-
-                        {/* Mobile Menu Button */}
-                        <div className="md:hidden flex items-center gap-4">
-                            {!user && (
-                                <button
-                                    onClick={() => setIsAuthOpen(true)}
-                                    className="p-2 text-white hover:text-accent"
-                                >
-                                    <UserIcon size={24} />
-                                </button>
-                            )}
-                            <button
-                                onClick={() => setIsOpen(!isOpen)}
-                                className="bg-white/5 p-2 rounded-lg text-white hover:text-accent focus:outline-none"
-                            >
-                                {isOpen ? <X size={24} /> : <Menu size={24} />}
-                            </button>
-                        </div>
+                }`}
+        >
+            <div className="container mx-auto px-4 md:px-8 flex justify-between items-center">
+                <div
+                    onClick={() => handleNavClick({ path: '/' })}
+                    className="flex items-center gap-3 cursor-pointer group"
+                >
+                    <div className="w-10 h-10 bg-primary rounded-xl flex items-center justify-center transform group-hover:rotate-12 transition-transform shadow-lg shadow-primary/20">
+                        <span className="text-white font-serif font-bold text-xl">H</span>
                     </div>
+                    <span className={`text-2xl font-serif font-bold tracking-tight transition-colors ${shouldShowSolid ? 'text-gray-900' : 'text-white'
+                        }`}>
+                        HCM
+                    </span>
                 </div>
 
-                {/* Mobile Menu */}
-                <div className={`fixed inset-0 top-[70px] bg-black/95 backdrop-blur-2xl transition-all duration-500 md:hidden ${isOpen ? 'opacity-100 visible' : 'opacity-0 invisible pointer-events-none'
-                    }`}>
-                    <div className="flex flex-col p-6 space-y-4">
-                        {user && (
-                            <div className="flex items-center gap-4 p-4 bg-white/5 rounded-2xl border border-white/10 mb-4">
-                                <img src={user.avatar} alt={user.name} className="w-12 h-12 rounded-full border-2 border-accent" />
-                                <div>
-                                    <p className="text-lg font-serif font-bold text-white">{user.name}</p>
-                                    <p className="text-xs text-gray-500">{user.email}</p>
-                                </div>
-                                <button onClick={handleLogout} className="ml-auto p-2 text-red-400">
-                                    <LogOut size={20} />
-                                </button>
-                            </div>
-                        )}
+                {/* Desktop Menu */}
+                <div className="hidden md:flex items-center gap-10">
+                    <div className="flex items-center gap-8">
                         {navItems.map((item) => (
                             <button
                                 key={item.id}
-                                onClick={() => scrollToSection(item.id)}
-                                className="text-2xl font-serif text-white py-4 border-b border-white/5 flex items-center justify-between group"
+                                onClick={() => handleNavClick(item)}
+                                className={`text-sm font-bold uppercase tracking-widest transition-all hover:text-accent relative group ${shouldShowSolid ? 'text-gray-600' : 'text-white/80'
+                                    }`}
                             >
-                                <span>{item.name}</span>
-                                <div className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-primary transition-colors">
-                                    <ShieldCheck size={18} />
-                                </div>
+                                {item.name}
+                                <span className={`absolute -bottom-1 left-0 w-0 h-0.5 bg-accent transition-all group-hover:w-full`}></span>
                             </button>
                         ))}
-                        <button
-                            onClick={() => scrollToSection('game')}
-                            className="mt-8 bg-primary text-white py-5 rounded-2xl font-bold text-xl shadow-xl"
-                        >
-                            Bắt đầu chặng đua tri thức
-                        </button>
+                    </div>
+
+                    <div className="h-6 w-px bg-gray-200"></div>
+
+                    <div className="flex items-center gap-6">
+                        <div className="flex flex-col items-end">
+                            <div className={`text-[10px] uppercase tracking-tighter font-bold ${shouldShowSolid ? 'text-gray-400' : 'text-white/40'}`}>Trực tuyến</div>
+                            <div className="flex items-center gap-2">
+                                <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse shadow-[0_0_8px_rgba(34,197,94,0.6)]"></div>
+                                <span className={`font-mono text-sm font-bold ${shouldShowSolid ? 'text-gray-900' : 'text-white'}`}>{stats.online}</span>
+                            </div>
+                        </div>
+
+                        <div className="flex flex-col items-end">
+                            <div className={`text-[10px] uppercase tracking-tighter font-bold ${shouldShowSolid ? 'text-gray-400' : 'text-white/40'}`}>Tổng truy cập</div>
+                            <div className="flex items-center gap-2">
+                                <Monitor size={14} className={shouldShowSolid ? 'text-primary' : 'text-primary-light'} />
+                                <span className={`font-mono text-sm font-bold ${shouldShowSolid ? 'text-gray-900' : 'text-white'}`}>{stats.total.toLocaleString()}</span>
+                            </div>
+                        </div>
+
+                        {user ? (
+                            <div className="relative">
+                                <button
+                                    onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
+                                    className="flex items-center gap-3 pl-3 pr-1 py-1 rounded-full border-2 border-primary/20 hover:border-primary transition-all bg-white/5"
+                                >
+                                    <span className={`font-bold text-sm ${scrolled ? 'text-gray-900' : 'text-white'}`}>
+                                        {user.name.split(' ').pop()}
+                                    </span>
+                                    <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-white font-bold ring-2 ring-white/20">
+                                        {user.avatar ? (
+                                            <img src={user.avatar} alt="Avatar" className="w-full h-full rounded-full object-cover" />
+                                        ) : (
+                                            user.name.charAt(0)
+                                        )}
+                                    </div>
+                                </button>
+
+                                {isUserMenuOpen && (
+                                    <div className="absolute right-0 mt-4 w-56 bg-white rounded-2xl shadow-2xl py-3 border border-gray-100 animate-slide-up origin-top-right ring-1 ring-black/5">
+                                        <div className="px-4 py-2 border-b border-gray-100 mb-2">
+                                            <p className="text-xs text-gray-400 font-bold uppercase tracking-widest">Tài khoản</p>
+                                            <p className="text-sm font-bold text-gray-900 truncate">{user.email}</p>
+                                        </div>
+                                        <button
+                                            onClick={() => {
+                                                localStorage.removeItem('user');
+                                                setUser(null);
+                                                setIsUserMenuOpen(false);
+                                                window.location.reload();
+                                            }}
+                                            className="w-full text-left px-4 py-3 text-red-500 hover:bg-red-50 font-bold transition-colors flex items-center gap-2"
+                                        >
+                                            Đăng xuất
+                                        </button>
+                                    </div>
+                                )}
+                            </div>
+                        ) : (
+                            <button
+                                onClick={() => setIsAuthModalOpen(true)}
+                                className="px-6 py-2.5 bg-primary text-white font-bold rounded-full hover:bg-primary-light transition-all shadow-lg shadow-primary/20 active:scale-95"
+                            >
+                                Đăng nhập
+                            </button>
+                        )}
                     </div>
                 </div>
-            </nav>
+
+                {/* Mobile Menu Button */}
+                <button
+                    onClick={() => setIsMenuOpen(!isMenuOpen)}
+                    className={`md:hidden p-2 rounded-xl transition-colors ${scrolled ? 'text-gray-900 hover:bg-gray-100' : 'text-white hover:bg-white/10'
+                        }`}
+                >
+                    {isMenuOpen ? <X size={28} /> : <Menu size={28} />}
+                </button>
+            </div>
+
+            {/* Mobile Menu Overlay */}
+            {isMenuOpen && (
+                <div className="md:hidden fixed inset-0 top-[70px] bg-white z-50 p-6 animate-fade-in flex flex-col">
+                    <div className="space-y-4 mb-8">
+                        {navItems.map((item) => (
+                            <button
+                                key={item.id}
+                                onClick={() => handleNavClick(item)}
+                                className="w-full text-left px-6 py-4 rounded-2xl bg-gray-50 text-gray-900 font-bold text-xl active:bg-primary active:text-white transition-all flex justify-between items-center"
+                            >
+                                {item.name}
+                                <ChevronRight size={20} className="text-gray-400" />
+                            </button>
+                        ))}
+                    </div>
+
+                    <div className="mt-auto space-y-4">
+                        <div className="p-6 bg-cream rounded-3xl space-y-4">
+                            <div className="flex justify-between items-center">
+                                <span className="text-gray-500 font-bold">Trực tuyến</span>
+                                <div className="flex items-center gap-2">
+                                    <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                                    <span className="text-gray-900 font-mono font-bold text-lg">{stats.online}</span>
+                                </div>
+                            </div>
+                            <div className="flex justify-between items-center pt-4 border-t border-gray-200">
+                                <span className="text-gray-500 font-bold">Tổng truy cập</span>
+                                <div className="flex items-center gap-2">
+                                    <Monitor size={18} className="text-primary" />
+                                    <span className="text-gray-900 font-mono font-bold text-lg">{stats.total.toLocaleString()}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        {!user && (
+                            <button
+                                onClick={() => {
+                                    setIsMenuOpen(false);
+                                    setIsAuthModalOpen(true);
+                                }}
+                                className="w-full py-5 bg-primary text-white font-bold rounded-2xl shadow-xl shadow-primary/20 text-lg"
+                            >
+                                Đăng nhập ngay
+                            </button>
+                        )}
+                    </div>
+                </div>
+            )}
 
             <AuthModal
-                isOpen={isAuthOpen}
-                onClose={() => setIsAuthOpen(false)}
+                isOpen={isAuthModalOpen}
+                onClose={() => setIsAuthModalOpen(false)}
                 onAuthSuccess={(userData) => setUser(userData)}
             />
-        </>
+        </nav>
     );
 };
 

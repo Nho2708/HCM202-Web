@@ -25,7 +25,6 @@ const Hero = () => {
                     {/* Text Content */}
                     <div className="lg:w-1/2 space-y-8 text-center lg:text-left animate-fade-in">
                         <div className="inline-flex items-center gap-2 bg-white/5 border border-white/10 px-4 py-2 rounded-full text-accent text-sm font-bold backdrop-blur-md">
-                            <Zap size={14} className="fill-accent" />
                             <span>{user ? `Chào mừng trở lại, ${user.name}!` : 'Tri thức số 2026'}</span>
                         </div>
 
@@ -66,7 +65,7 @@ const Hero = () => {
                                 <div className="text-sm text-gray-500 uppercase tracking-widest">Chương học</div>
                             </div>
                             <div className="w-px h-10 bg-white/10"></div>
-                            
+
                         </div>
                     </div>
 
@@ -94,7 +93,7 @@ const Hero = () => {
                                 <div className="absolute -top-6 -right-6 p-4 bg-white rounded-2xl shadow-xl animate-bounce [animation-duration:3s]">
                                     <Star className="text-yellow-500 fill-yellow-500" size={32} />
                                 </div>
-                               
+
                             </div>
                         </div>
 

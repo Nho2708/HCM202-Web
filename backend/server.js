@@ -8,15 +8,18 @@ require('dotenv').config();
 const app = express();
 const path = require('path');
 app.use(express.json());
-app.use(cors());
 
-// Phục vụ các file tĩnh từ thư mục build của Frontend
-app.use(express.static(path.join(__dirname, '../dist')));
+// Cấu hình CORS mở để Vercel có thể gọi tới
+app.use(cors({
+    origin: "*",
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"]
+}));
 
-const server = http.createServer(app); // Tạo server từ app
+const server = http.createServer(app);
 const io = new Server(server, {
     cors: {
-        origin: "*", // Cho phép tất cả các nguồn (cần cấu hình lại khi deploy)
+        origin: "*",
         methods: ["GET", "POST"]
     }
 });

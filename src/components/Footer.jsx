@@ -28,7 +28,7 @@ const Footer = () => {
                     <div>
                         <h3 className="text-lg font-bold mb-6 text-accent">Liên Kết Nhanh</h3>
                         <ul className="space-y-4 text-gray-400">
-                            {['Trang chủ', 'Bài học', 'Hành trình Game', 'Trợ lý AI'].map((item, i) => (
+                            {['Trang chủ', 'Bài học', 'Hành trình Game', 'Chuyên gia tư tưởng'].map((item, i) => (
                                 <li key={i}>
                                     <a href={`#${['home', 'content', 'game', 'qa'][i]}`} className="hover:text-white transition-colors flex items-center gap-2">
                                         <div className="w-1 h-1 bg-primary rounded-full"></div>

@@ -7,7 +7,7 @@ const GEMINI_API_KEY = "AIzaSyA7uw4dQcoZ-ax9n5w2WCYBAxuK68DTxfQ";
 
 const QASection = () => {
     const [messages, setMessages] = useState([
-        { role: 'ai', content: 'Xin chào! Tôi là một trợ lý thông minh. Bạn có thể hỏi tôi bất cứ điều gì. Hãy bắt đầu cuộc trò chuyện! 😊' }
+        { role: 'ai', content: 'Xin chào! Tôi là một chuyên gia tư tưởng. Bạn có thể hỏi tôi bất cứ điều gì. Hãy bắt đầu cuộc trò chuyện! 😊' }
     ]);
     const [input, setInput] = useState('');
     const [isLoading, setIsLoading] = useState(false);

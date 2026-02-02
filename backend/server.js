@@ -103,7 +103,7 @@ app.post('/api/chat', async (req, res) => {
 
         const relevantKnowledge = relevantChunks.map(chunk => `[${chunk.category}] ${chunk.title}: ${chunk.content}`).join("\n");
 
-        const systemPrompt = `Bạn là "Chuyên gia Tư vấn Tư tưởng Hồ Chí Minh" - một trợ lý AI thông minh, uyên bác và thân thiện của trang web HCM Learning.
+        const systemPrompt = `Bạn là "Chuyên gia Tư tưởng Hồ Chí Minh" - một chuyên gia uyên bác, thân thiện và tận tâm của trang web Tư Tưởng Hồ Chí Minh.
         
         NHIỆM VỤ CỦA BẠN:
         1. Cung cấp kiến thức chính xác, hệ thống và sâu sắc về Tư tưởng Hồ Chí Minh.

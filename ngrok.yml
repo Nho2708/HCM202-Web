@@ -1,0 +1,7 @@
+authtoken: 34EXTBUzUGifJXriDD52ioUIch2_7qCPAE8LbKrNgksifqV7m
+version: "2"
+tunnels:
+  backend:
+    proto: http
+    addr: 5001
+    host_header: localhost:5001

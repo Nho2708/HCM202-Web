@@ -1,0 +1,26 @@
+
+> hcm-edu@0.0.0 build
+> vite build
+
+You are using Node.js 20.17.0. Vite requires Node.js version 20.19+ or 22.12+. Please upgrade your Node.js version.
+[36mvite v7.3.1 [32mbuilding client environment for production...[36m[39m
+transforming...
+[32mΓ£ô[39m 25 modules transformed.
+Γ£ù Build failed in 740ms
+error during build:
+src/data/syllabus.js (8:14): Expression expected
+file: C:/Users/levono/Videos/─Éß╗ô ├ün/HCM/src/data/syllabus.js:8:14
+
+ 6:         id: 1,
+ 7:         title: "Ch╞░╞íng 1: C╞í sß╗ƒ, qu├í tr├¼nh h├¼nh th├ánh v├á ph├ít triß╗ân",
+ 8:         icon: <BookOpen className="w-5 h-5" />,
+                  ^
+ 9:         summary: "Nghi├¬n cß╗⌐u c╞í sß╗ƒ thß╗▒c tiß╗àn v├á l├╜ luß║¡n h├¼nh th├ánh t╞░ t╞░ß╗ƒng Hß╗ô Ch├¡ Minh.",
+10:         sections: [
+
+    at getRollupError (file:///C:/Users/levono/Videos/%C4%90%E1%BB%93%20%C3%81n/HCM/node_modules/rollup/dist/es/shared/parseAst.js:402:41)
+    at ParseError.initialise (file:///C:/Users/levono/Videos/%C4%90%E1%BB%93%20%C3%81n/HCM/node_modules/rollup/dist/es/shared/node-entry.js:14462:28)
+    at convertNode (file:///C:/Users/levono/Videos/%C4%90%E1%BB%93%20%C3%81n/HCM/node_modules/rollup/dist/es/shared/node-entry.js:16434:10)
+    at convertProgram (file:///C:/Users/levono/Videos/%C4%90%E1%BB%93%20%C3%81n/HCM/node_modules/rollup/dist/es/shared/node-entry.js:15674:12)
+    at Module.setSource (file:///C:/Users/levono/Videos/%C4%90%E1%BB%93%20%C3%81n/HCM/node_modules/rollup/dist/es/shared/node-entry.js:17389:24)
+    at async ModuleLoader.addModuleSource (file:///C:/Users/levono/Videos/%C4%90%E1%BB%93%20%C3%81n/HCM/node_modules/rollup/dist/es/shared/node-entry.js:21471:13)

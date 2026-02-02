@@ -43,7 +43,7 @@ const Footer = () => {
                     <div>
                         <h3 className="text-lg font-bold mb-6 text-accent">Tài Nguyên</h3>
                         <ul className="space-y-4 text-gray-400">
-                            {['Bảo tàng Hồ Chí Minh', 'Di tích K9 - Đá Chông', 'Khu di tích Kim Liên'].map((item, i) => (
+                            {['Bảo tàng Hồ Chí Minh', 'Di tích K9 - Đá Chông', 'Khu di tích Kim Liên', 'Giảng viên: PhD. S. Ngô Khánh Duy'].map((item, i) => (
                                 <li key={i}>
                                     <a href="#" className="hover:text-white transition-colors flex items-center gap-2 group">
                                         {item}
@@ -59,9 +59,6 @@ const Footer = () => {
                     <div>
                         <p className="text-gray-500 text-sm">
                             &copy; {new Date().getFullYear()} Hồ Chí Minh Learning Hub.
-                        </p>
-                        <p className="text-gray-600 text-xs mt-2">
-                            Giảng viên: PhD. S. Ngô Khánh Duy
                         </p>
                     </div>
                     <div className="flex gap-8 text-sm text-gray-500">

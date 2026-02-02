@@ -25,9 +25,12 @@ const AuthModal = ({ isOpen, onClose, onAuthSuccess }) => {
                 const userInfo = await userInfoRes.json();
 
                 // Send user info to our backend
-                const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/auth/google`, {
+                const res = await fetch(`${import.meta.env.VITE_API_BASE_URL.replace(/\/$/, "")}/api/auth/google`, {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'ngrok-skip-browser-warning': '69420'
+                    },
                     body: JSON.stringify({
                         name: userInfo.name,
                         email: userInfo.email,
@@ -74,9 +77,13 @@ const AuthModal = ({ isOpen, onClose, onAuthSuccess }) => {
             : { name: formData.name, email: formData.email, password: formData.password };
 
         try {
-            const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}${endpoint}`, {
+            const apiBaseUrl = import.meta.env.VITE_API_BASE_URL.replace(/\/$/, "");
+            const res = await fetch(`${apiBaseUrl}${endpoint}`, {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: {
+                    'Content-Type': 'application/json',
+                    'ngrok-skip-browser-warning': '69420'
+                },
                 body: JSON.stringify(payload)
             });
 

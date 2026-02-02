@@ -24,7 +24,7 @@ const Navbar = () => {
             setUser(JSON.parse(savedUser));
         }
 
-        const API_URL = import.meta.env.VITE_API_BASE_URL;
+        const API_URL = import.meta.env.VITE_API_BASE_URL.replace(/\/$/, ""); // Xóa dấu / ở cuối nếu có
         console.log("Connecting to API at:", API_URL); // Dòng này giúp bạn kiểm tra F12 xem URL đúng chưa
 
         // Stats logic
@@ -34,7 +34,11 @@ const Navbar = () => {
             sessionStorage.setItem('hasVisited', 'true');
         }
 
-        fetch(`${API_URL}/api/stats/visit?increment=${shouldIncrement}`)
+        fetch(`${API_URL}/api/stats/visit?increment=${shouldIncrement}`, {
+            headers: {
+                "ngrok-skip-browser-warning": "69420" // Bypass ngrok warning page
+            }
+        })
             .then(res => res.json())
             .then(data => {
                 console.log("Visit stats received:", data);

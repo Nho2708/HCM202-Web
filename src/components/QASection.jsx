@@ -37,12 +37,31 @@ const QASection = () => {
         if (!customInput) setInput('');
         setIsLoading(true);
 
-        // Use knowledge base to find answer
-        setTimeout(() => {
+        try {
+            const apiBaseUrl = import.meta.env.VITE_API_BASE_URL.replace(/\/$/, "");
+            const res = await fetch(`${apiBaseUrl}/api/chat`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'ngrok-skip-browser-warning': '69420'
+                },
+                body: JSON.stringify({ message: messageToSend })
+            });
+
+            if (res.ok) {
+                const data = await res.json();
+                setMessages(prev => [...prev, { role: 'ai', content: data.reply }]);
+            } else {
+                throw new Error('Không thể kết nối với AI');
+            }
+        } catch (error) {
+            console.error("Chat error:", error);
+            // Fallback to local knowledge if backend fails
             const aiResponse = findAnswer(messageToSend);
             setMessages(prev => [...prev, { role: 'ai', content: aiResponse }]);
+        } finally {
             setIsLoading(false);
-        }, 800);
+        }
     };
 
     return (
@@ -106,18 +125,16 @@ const QASection = () => {
                         {messages.map((msg, idx) => (
                             <div key={idx} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'} animate-slide-up`}>
                                 <div className={`flex gap-4 max-w-[90%] md:max-w-[75%] ${msg.role === 'user' ? 'flex-row-reverse' : ''}`}>
-                                    <div className={`w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 shadow-lg ${
-                                        msg.role === 'user'
+                                    <div className={`w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 shadow-lg ${msg.role === 'user'
                                             ? 'bg-gradient-to-br from-primary to-primary-light text-white'
                                             : 'bg-white border border-gray-100 text-primary'
-                                    }`}>
+                                        }`}>
                                         {msg.role === 'user' ? <User size={20} /> : <Bot size={20} />}
                                     </div>
-                                    <div className={`p-4 rounded-2xl shadow-sm ${
-                                        msg.role === 'user'
+                                    <div className={`p-4 rounded-2xl shadow-sm ${msg.role === 'user'
                                             ? 'bg-primary text-white rounded-tr-none'
                                             : 'bg-white text-gray-800 rounded-tl-none border border-gray-100'
-                                    }`}>
+                                        }`}>
                                         <p className="leading-relaxed whitespace-pre-wrap text-[14px]">{msg.content}</p>
                                     </div>
                                 </div>

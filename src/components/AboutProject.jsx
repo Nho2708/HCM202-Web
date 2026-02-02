@@ -34,7 +34,7 @@ const AboutProject = () => {
                                 <div>
                                     <h3 className="text-xl font-bold mb-2">Lý Do Xây Dựng</h3>
                                     <p className="text-gray-600 leading-relaxed text-[15px]">
-                                        Dự án được ra đời với mục tiêu hiện đại hóa việc tiếp cận Tư tưởng Hồ Chí Minh.
+                                        Dự án được ra đời với mục tiêu hiện đại hóa việc tiếp cận môn họcTư tưởng Hồ Chí Minh.
                                         Chúng tôi tin rằng việc kết hợp công nghệ số và giáo dục chính trị sẽ giúp các bạn sinh viên
                                         dễ dàng tiếp thu, tra cứu và hiểu sâu sắc hơn về những giá trị di sản quý báu của dân tộc
                                         trong thời đại 4.0.
@@ -49,8 +49,8 @@ const AboutProject = () => {
                                 <div>
                                     <h3 className="text-xl font-bold mb-2">Nguồn Tài Nguyên</h3>
                                     <p className="text-gray-600 leading-relaxed text-[15px]">
-                                        Nội dung được trích xuất và tổng hợp từ giáo trình chính thống môn học Tư tưởng Hồ Chí Minh (HCM202).
-                                        Các tư liệu lịch sử được tham khảo từ các nguồn bảo tàng và văn bản chính thức của Đảng và Nhà nước,
+                                        Nội dung được trích xuất và tổng hợp từ giáo trình môn học Tư tưởng Hồ Chí Minh thuộc bản quyền của     <a href="https://drive.google.com/drive/folders/1bRmFwuB-QqoqcKRJOOrFvK9V1RlhfgN-" className="text-primary hover:underline">Giảng viên: PhD. S. Ngô Khánh Duy</a>.
+                                        Các tư liệu lịch sử được tham khảo từ các nguồn chính thống <a href="https://tapchicongsan.org.vn/web/guest/chinh-tri-xay-dung-dang/-/2018/929602/tu-tuong-ho-chi-minh---nen-tang-xay-dung-niem-tin-vao-thang-loi-cua-su-nghiep-doi-moi-do-dang-cong-san-viet-nam-lanh-dao.aspx" className="text-primary hover:underline">Tạp chí cộng sản</a> ,
                                         đảm bảo tính chính xác và tôn trọng lịch sử.
                                     </p>
                                 </div>
@@ -65,22 +65,8 @@ const AboutProject = () => {
                                 <div>
                                     <h3 className="text-xl font-bold mb-2">Ứng Dụng AI</h3>
                                     <p className="text-gray-600 leading-relaxed text-[15px]">
-                                        AI được tích hợp sâu rộng thông qua "Chuyên gia tư tưởng" (Gemini Pro).
-                                        Web sử dụng AI để giải đáp các thắc mắc phức tạp, phân tích dữ liệu lịch sử
-                                        và gợi ý các câu hỏi học tập thông minh dựa trên ngữ cảnh người dùng.
-                                    </p>
-                                </div>
-                            </div>
-
-                            <div className="flex items-start gap-4">
-                                <div className="p-3 bg-green-100 rounded-2xl text-green-600">
-                                    <ShieldCheck size={24} />
-                                </div>
-                                <div>
-                                    <h3 className="text-xl font-bold mb-2">Bảo Mật & Công Nghệ</h3>
-                                    <p className="text-gray-600 leading-relaxed text-[15px]">
-                                        Sử dụng cơ chế Google OAuth 2.0 để bảo mật thông tin người dùng.
-                                        Hệ thống được tối ưu hóa để chạy mượt mà trên cả trình duyệt máy tính và thiết bị di động.
+                                        AI được tích hợp vào "Chuyên gia tư tưởng".
+                                        Web sử dụng AI để giải đáp các thắc mắc cơ bản nằm trong phạm vi kiến thức môn học, phân tích dữ liệu lịch sử.
                                     </p>
                                 </div>
                             </div>

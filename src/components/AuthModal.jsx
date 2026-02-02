@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { X, Mail, Lock, User, Eye, EyeOff, Github, Chrome, ArrowRight, ShieldCheck } from 'lucide-react';
+import { X, Mail, Lock, User, Eye, EyeOff, Chrome, ArrowRight, ShieldCheck } from 'lucide-react';
 import { useGoogleLogin } from '@react-oauth/google';
 
 const AuthModal = ({ isOpen, onClose, onAuthSuccess }) => {
@@ -215,20 +215,14 @@ const AuthModal = ({ isOpen, onClose, onAuthSuccess }) => {
                             </div>
                         </div>
 
-                        <div className="grid grid-cols-2 gap-4">
-                            <button
-                                type="button"
-                                onClick={handleGoogleClick}
-                                className="flex items-center justify-center gap-2 py-3 border border-gray-100 rounded-xl hover:bg-gray-50 transition-all active:scale-95 group"
-                            >
-                                <Chrome size={18} className="text-red-500 group-hover:scale-110 transition-transform" />
-                                <span className="text-sm font-bold text-gray-700">Tiếp tục với Google</span>
-                            </button>
-                            <button className="flex items-center justify-center gap-2 py-3 border border-gray-100 rounded-xl hover:bg-gray-50 transition-colors">
-                                <Github size={18} className="text-gray-900" />
-                                <span className="text-sm font-bold text-gray-700">Github</span>
-                            </button>
-                        </div>
+                        <button
+                            type="button"
+                            onClick={handleGoogleClick}
+                            className="w-full flex items-center justify-center gap-3 py-4 border-2 border-gray-100 rounded-2xl hover:bg-gray-50 hover:border-primary/20 transition-all active:scale-95 group"
+                        >
+                            <Chrome size={20} className="text-red-500 group-hover:scale-110 transition-transform" />
+                            <span className="font-bold text-gray-700">Tiếp tục với Google</span>
+                        </button>
                     </div>
 
                     <p className="mt-8 text-center text-gray-500 text-sm">

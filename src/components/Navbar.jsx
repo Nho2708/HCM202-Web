@@ -24,33 +24,41 @@ const Navbar = () => {
             setUser(JSON.parse(savedUser));
         }
 
-        // Kiểm tra session để tránh tăng 2 lần do StrictMode hoặc F5
-        let hasVisitedSession = sessionStorage.getItem('hasVisited');
-        let shouldIncrement = false;
+        const API_URL = import.meta.env.VITE_API_BASE_URL;
+        console.log("Connecting to API at:", API_URL); // Dòng này giúp bạn kiểm tra F12 xem URL đúng chưa
 
-        if (!hasVisitedSession) {
-            sessionStorage.setItem('hasVisited', 'true'); // Đánh dấu đã truy cập NGAY LẬP TỨC
-            shouldIncrement = true;
+        // Stats logic
+        let hasVisitedSession = sessionStorage.getItem('hasVisited');
+        let shouldIncrement = !hasVisitedSession;
+        if (shouldIncrement) {
+            sessionStorage.setItem('hasVisited', 'true');
         }
 
-        const fetchUrl = `${import.meta.env.VITE_API_BASE_URL}/api/stats/visit?increment=${shouldIncrement}`;
-
-        fetch(fetchUrl)
+        fetch(`${API_URL}/api/stats/visit?increment=${shouldIncrement}`)
             .then(res => res.json())
             .then(data => {
-                setTotalVisits(data.totalVisits);
+                console.log("Visit stats received:", data);
+                setTotalVisits(data.totalVisits || 0);
             })
             .catch(err => console.error("Error fetching visits:", err));
 
         // Socket logic for Online count
-        const socket = io(import.meta.env.VITE_API_BASE_URL);
+        const socket = io(API_URL, {
+            transports: ['websocket', 'polling'], // Đảm bảo socket chạy được qua tunnel
+            reconnectionAttempts: 5
+        });
+
+        socket.on('connect', () => console.log("Socket connected!"));
         socket.on('onlineCount', (count) => {
+            console.log("Online users:", count);
             setOnlineCount(count);
         });
 
-        window.addEventListener('scroll', handleScroll);
+        socket.on('connect_error', (err) => {
+            console.error("Socket connection error:", err);
+        });
 
-        // Listen for global auth trigger
+        window.addEventListener('scroll', handleScroll);
         const handleOpenAuth = () => setIsAuthOpen(true);
         window.addEventListener('openAuthModal', handleOpenAuth);
 

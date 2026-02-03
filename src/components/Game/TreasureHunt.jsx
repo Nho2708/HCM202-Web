@@ -13,6 +13,14 @@ const TreasureHunt = ({ onBack }) => {
     const [inventory, setInventory] = useState([]); // Collected clue words
     const [feedback, setFeedback] = useState(null);
     const [selectedOption, setSelectedOption] = useState(null);
+    const [shuffledOptions, setShuffledOptions] = useState([]);
+
+    // Update shuffled options when currentStep or selectedQuest changes
+    useEffect(() => {
+        if (selectedQuest && selectedQuest.milestones[currentStep]) {
+            setShuffledOptions(shuffleArray(selectedQuest.milestones[currentStep].options));
+        }
+    }, [currentStep, selectedQuest]);
 
     // Assembly State
     const [userQuote, setUserQuote] = useState("");
@@ -364,7 +372,7 @@ const TreasureHunt = ({ onBack }) => {
                             {data.riddle}
                         </h4>
                         <div className="space-y-3">
-                            {data.options.map((opt, i) => (
+                            {shuffledOptions.map((opt, i) => (
                                 <button
                                     key={i}
                                     onClick={() => handleAnswer(opt)}

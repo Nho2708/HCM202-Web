@@ -68,6 +68,19 @@ export const treasurePool = {
                 { id: 5, location: "Hà Nội", milestone: "Hòa bình", riddle: "Bác nói: 'Tôi chỉ có một ham muốn, ham muốn tột bậc là nước nhà được...'?", options: ["Độc lập hoàn toàn", "Giàu có", "To rộng", "Bình yên"], answer: "Độc lập hoàn toàn", clueWord: "DOC LAP", points: 200 },
                 { id: 6, location: "Di chúc", milestone: "Dặn dò", riddle: "Trong di chúc, Bác khẳng định cuối cùng toàn Đảng, toàn dân sẽ ... một nước VN hòa bình?", options: ["Xây dựng", "Phá bỏ", "Rời đi", "Kêu gọi"], answer: "Xây dựng", clueWord: "TU DO", points: 200 }
             ]
+        },
+        {
+            version: 2,
+            title: "Chương 3: Giải phóng & Thống nhất",
+            finalQuote: "QUYET TAM KHANG CHIEN DEN CUNG",
+            milestones: [
+                { id: 1, location: "Pác Bó", milestone: "Về nước", riddle: "Đầu năm 1941, Bác về nước trực tiếp lãnh đạo cách mạng tại đâu?", options: ["Cao Bằng", "Lạng Sơn", "Tuyên Quang", "Thái Nguyên"], answer: "Cao Bằng", clueWord: "QUYET", points: 200 },
+                { id: 2, location: "Tân Trào", milestone: "Quốc dân", riddle: "Đại hội Quốc dân Tân Trào đã thông qua lệnh gì?", options: ["Tổng khởi nghĩa", "Đình chiến", "Di cư", "Cải cách"], answer: "Tổng khởi nghĩa", clueWord: "TAM", points: 200 },
+                { id: 3, location: "Quảng trường Ba Đình", milestone: "Tự do", riddle: "Bác đọc Tuyên ngôn Độc lập vào ngày tháng năm nào?", options: ["2/9/1945", "19/8/1945", "1/5/1945", "3/2/1930"], answer: "2/9/1945", clueWord: "KHANG", points: 200 },
+                { id: 4, location: "Chiến khu", milestone: "Sức mạnh", riddle: "Bác khẳng định: 'Kháng chiến nhất định ...'?", options: ["Thắng lợi", "Thất bại", "Kéo dài", "Kết thúc"], answer: "Thắng lợi", clueWord: "CHIEN", points: 200 },
+                { id: 5, location: "Điện Biên Phủ", milestone: "Chấn động", riddle: "Chiến thắng Điện Biên Phủ kết thúc vào năm nào?", options: ["1954", "1945", "1975", "1960"], answer: "1954", clueWord: "DEN", points: 200 },
+                { id: 6, location: "Dinh Độc Lập", milestone: "Toàn thắng", riddle: "Cuộc tổng tiến công và nổi dậy mùa Xuân kết thúc vào năm nào?", options: ["1975", "1972", "1968", "1945"], answer: "1975", clueWord: "CUNG", points: 200 }
+            ]
         }
     ],
     chapter4: [
@@ -82,6 +95,19 @@ export const treasurePool = {
                 { id: 4, location: "Đại hội Đảng", milestone: "Tự phê bình", riddle: "Vũ khí sắc bén của Đảng là phê bình và ...?", options: ["Tự phê bình", "Phê phán", "Kỷ luật", "Khen thưởng"], answer: "Tự phê bình", clueWord: "MOT DANG", points: 200 },
                 { id: 5, location: "Công trường", milestone: "Gần dân", riddle: "Đảng phải liên hệ chặt chẽ với đối tượng nào?", options: ["Quần chúng nhân dân", "Cấp trên", "Nước ngoài", "Trí thức"], answer: "Quần chúng nhân dân", clueWord: "CAM", points: 200 },
                 { id: 6, location: "Thủ đô", milestone: "Sức mạnh", riddle: "Đảng mạnh là nhờ có cái gì thống nhất?", options: ["Tư tưởng và tổ chức", "Vũ khí", "Tiền bạc", "Địa hình"], answer: "Tư tưởng và tổ chức", clueWord: "QUYEN", points: 200 }
+            ]
+        },
+        {
+            version: 2,
+            title: "Chương 4: Rèn luyện Đảng viên",
+            finalQuote: "DANG VIEN TIEN PHONG GUONG MAU",
+            milestones: [
+                { id: 1, location: "Chi bộ", milestone: "Nền móng", riddle: "Chi bộ là ... của Đảng?", options: ["Gốc rễ", "Ngôi nhà", "Hạt nhân", "Cửa sổ"], answer: "Gốc rễ", clueWord: "DANG", points: 200 },
+                { id: 2, location: "Lớp tập huấn", milestone: "Đạo đức", riddle: "Người cách mạng phải có cái gì làm gốc?", options: ["Đạo đức", "Tiền tài", "Quyền lực", "Danh vọng"], answer: "Đạo đức", clueWord: "VIEN", points: 200 },
+                { id: 3, location: "Cơ sở", milestone: "Gương mẫu", riddle: "Đảng viên đi trước, ... theo sau?", options: ["Làng nước", "Gia đình", "Bạn bè", "Đồng nghiệp"], answer: "Làng nước", clueWord: "TIEN", points: 200 },
+                { id: 4, location: "Vùng xa", milestone: "Dấn thân", riddle: "Ở đâu ... thì Đảng viên ở đó?", options: ["Cần", "Vui", "Giàu", "Dễ"], answer: "Cần", clueWord: "PHONG", points: 200 },
+                { id: 5, location: "Hội trường", milestone: "Kỷ luật", riddle: "Kỷ luật của Đảng là kỷ luật gì?", options: ["Sắt", "Lỏng lẻo", "Tự nguyện", "Ép buộc"], answer: "Sắt", clueWord: "GUONG", points: 200 },
+                { id: 6, location: "Nhân dân", milestone: "Uy tín", riddle: "Muốn dân tin, Đảng viên phải làm gì?", options: ["Nói đi đôi với làm", "Chỉ nói không làm", "Làm ít nói nhiều", "Hứa thật nhiều"], answer: "Nói đi đôi với làm", clueWord: "MAU", points: 200 }
             ]
         }
     ],
@@ -98,6 +124,19 @@ export const treasurePool = {
                 { id: 5, location: "Biên giới", milestone: "Bạn bè", riddle: "Quan điểm: 'Giúp bạn là tự giúp ...'?", options: ["Mình", "Họ", "Đất nước", "Dân tộc"], answer: "Mình", clueWord: "DAI", points: 200 },
                 { id: 6, location: "Sân bay", milestone: "Hòa bình", riddle: "Bác chủ trương làm bạn với tất cả các nước ...?", options: ["Dân chủ", "Giàu có", "Lớn mạnh", "Láng giềng"], answer: "Dân chủ", clueWord: "DOAN KET", points: 200 }
             ]
+        },
+        {
+            version: 2,
+            title: "Chương 5: Bầu bạn năm châu",
+            finalQuote: "MUON LAM BAN VOI TAT CA MOI NUOC DAN CHU",
+            milestones: [
+                { id: 1, location: "Hội nghị", milestone: "Mục tiêu", riddle: "Hồ Chí Minh mong muốn làm bạn với ai?", options: ["Tất cả các nước dân chủ", "Các nước giàu", "Các nước láng giềng", "Chỉ các nước phe ta"], answer: "Tất cả các nước dân chủ", clueWord: "MUON", points: 200 },
+                { id: 2, location: "Biên giới", milestone: "Hỗ trợ", riddle: "Giúp bạn là ...?", options: ["Tự giúp mình", "Phung phí", "Mất thời gian", "Làm màu"], answer: "Tự giúp mình", clueWord: "LAM BAN", points: 200 },
+                { id: 3, location: "Diễn đàn", milestone: "Hòa bình", riddle: "Phương châm ngoại giao của Bác là gì?", options: ["Thêm bạn bớt thù", "Chỉ chơi với bạn", "Độc tôn", "Đối đầu"], answer: "Thêm bạn bớt thù", clueWord: "VOI", points: 200 },
+                { id: 4, location: "Trường Quốc tế", milestone: "Đoàn kết", riddle: "Vì sao phải đoàn kết quốc tế?", options: ["Vì hòa bình thế giới", "Vì lợi ích cá nhân", "Vì ép buộc", "Vì sợ hãi"], answer: "Vì hòa bình thế giới", clueWord: "TAT CA", points: 200 },
+                { id: 5, location: "Thành phố", milestone: "Hợp tác", riddle: "Việt Nam sẵn sàng là bạn và là ... tin cậy?", options: ["Đối tác", "Đối thủ", "Cấp dưới", "Người hầu"], answer: "Đối tác", clueWord: "MOI NUOC", points: 200 },
+                { id: 6, location: "Thế giới", milestone: "Xu thế", riddle: "Hòa bình, độc lập và ... là khát vọng chung?", options: ["Dân chủ", "Chiến tranh", "Thống trị", "Chia rẽ"], answer: "Dân chủ", clueWord: "DAN CHU", points: 200 }
+            ]
         }
     ],
     chapter6: [
@@ -112,6 +151,19 @@ export const treasurePool = {
                 { id: 4, location: "Nhà sàn", milestone: "Giản dị", riddle: "Lối sống của Bác được gọi là gì?", options: ["Thanh cao, giản dị", "Xa hoa", "Khép kín", "Hào nhoáng"], answer: "Thanh cao, giản dị", clueWord: "CHINH", points: 200 },
                 { id: 5, location: "Lớp học đạo đức", milestone: "Gốc", riddle: "Cũng như sông có nguồn mới có nước, người cách mạng phải có ... làm gốc?", options: ["Đạo đức", "Tài năng", "Tiền bạc", "Sức khỏe"], answer: "Đạo đức", clueWord: "CHI CONG", points: 200 },
                 { id: 6, location: "Phủ Chủ tịch", milestone: "Tận hiến", riddle: "Bác nói: 'Tôi hiến cả đời tôi cho ...'?", options: ["Dân tộc tôi", "Cá nhân tôi", "Gia đình tôi", "Bạn bè tôi"], answer: "Dân tộc tôi", clueWord: "VO TU", points: 200 }
+            ]
+        },
+        {
+            version: 2,
+            title: "Chương 6: Đời sống Mới",
+            finalQuote: "CAN KIEM LIEM CHINH DOI SONG MOI",
+            milestones: [
+                { id: 1, location: "Nhà ăn", milestone: "Tiết kiệm", riddle: "Bác dạy phải tiết kiệm cái gì?", options: ["Thời gian, tiền bạc, sức lực", "Chỉ tiền bạc", "Chỉ thức ăn", "Không cần tiết kiệm"], answer: "Thời gian, tiền bạc, sức lực", clueWord: "CAN", points: 200 },
+                { id: 2, location: "Công sở", milestone: "Chính trực", riddle: "Làm việc công phải như thế nào?", options: ["Chí công vô tư", "Tư lợi", "Chậm trễ", "Hối lộ"], answer: "Chí công vô tư", clueWord: "KIEM", points: 200 },
+                { id: 3, location: "Đường phố", milestone: "Văn minh", riddle: "Đời sống mới cần bỏ cái gì?", options: ["Hủ tục, mê tín", "Sách vở", "Lao động", "Học tập"], answer: "Hủ tục, mê tín", clueWord: "LIEM", points: 200 },
+                { id: 4, location: "Gia đình", milestone: "Nề nếp", riddle: "Xây dựng gia đình kiểu gì?", options: ["Gia đình văn hóa", "Gia đình giàu có", "Gia đình biệt lập", "Gia đình đông con"], answer: "Gia đình văn hóa", clueWord: "CHINH", points: 200 },
+                { id: 5, location: "Cá nhân", milestone: "Tu dưỡng", riddle: "Việc tu dưỡng đạo đức phải diễn ra lúc nào?", options: ["Suốt đời", "Lúc trẻ", "Khi về già", "Khi đi học"], answer: "Suốt đời", clueWord: "DOI SONG", points: 200 },
+                { id: 6, location: "Xã hội", milestone: "Lan tỏa", riddle: "Lấy gương người tốt việc tốt để làm gì?", options: ["Giáo dục nhau", "Để khoe", "Để so sánh", "Để ghen tị"], answer: "Giáo dục nhau", clueWord: "MOI", points: 200 }
             ]
         }
     ]
